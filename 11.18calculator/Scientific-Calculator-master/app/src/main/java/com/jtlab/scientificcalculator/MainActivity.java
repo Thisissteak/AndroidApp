@@ -443,16 +443,16 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.help:
                 Toast.makeText(MainActivity.this,"This is help!",Toast.LENGTH_SHORT).show();
+                break;
             case R.id.convert:
-                Button converter = (Button)findViewById(R.id.convert);
-                converter.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setClass(com.jtlab.scientificcalculator.MainActivity.this,Activity_Converter.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
+//                converter.setOnClickListener(new View.OnClickListener(){
+//                    @Override
+//                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,Activity_Converter.class);
+//                        intent.setClass(com.jtlab.scientificcalculator.MainActivity.this,Activity_Converter.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
                         startActivity(intent);
-                    }
-                });
+//                    }
+//                });
 
                 break;
 

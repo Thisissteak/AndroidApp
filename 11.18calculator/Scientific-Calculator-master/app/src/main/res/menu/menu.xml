@@ -5,7 +5,8 @@
         android:title="Help"
         app:showAsAction="never"/>
     <item android:id="@+id/convert"
-        android:title="Convert"
-        app:showAsAction="never"/>
+        android:title="Converter"
+        app:showAsAction="never" />
+
 
 </menu>
