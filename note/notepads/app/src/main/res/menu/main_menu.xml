@@ -6,12 +6,12 @@
 
     <item
         android:id="@+id/action_new"
-        android:title="new a note"
+        android:title="新建单词"
         android:orderInCategory="1"
         android:showAsAction="never"/>
     <item
         android:id="@+id/action_search"
-        android:title="search"
+        android:title="搜索"
         android:orderInCategory="2"
         android:showAsAction="never"/>
 
