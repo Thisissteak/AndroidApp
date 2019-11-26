@@ -12,3 +12,4 @@ public class Notes {
         public static final String COLUMN_NAME_TIME = "time";
     }
 }
+

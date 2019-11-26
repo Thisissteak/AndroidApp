@@ -34,3 +34,4 @@ public class NotesDBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 }
+//记事本的DB
