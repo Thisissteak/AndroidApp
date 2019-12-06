@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/compute_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="#131212"
+    tools:context="com.example.steak.Converter.Activity_Converter">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入:" />
+        <EditText
+            android:id="@+id/input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="在此输入您要转换的数字"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <RadioGroup
+            android:id="@+id/input_group"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RadioButton
+                android:id="@+id/input_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="二进制"/>
+            <RadioButton
+                android:id="@+id/input_eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="八进制"/>
+            <RadioButton
+                android:id="@+id/input_ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="十进制"/>
+            <RadioButton
+                android:id="@+id/input_sixteen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="十六进制"/>
+            <RadioButton
+                android:id="@+id/input_mile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="米"/>
+            <RadioButton
+                android:id="@+id/input_lfm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立方米"/>
+        </RadioGroup>
+    </LinearLayout>
+    <Button
+        android:id="@+id/change"
+        android:background="#307C8D"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="点此转换       " />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输出:" />
+        <EditText
+            android:id="@+id/output_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输出结果"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <RadioGroup
+            android:id="@+id/output_group"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/output_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="二进制"/>
+            <RadioButton
+                android:id="@+id/output_eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="八进制"/>
+            <RadioButton
+                android:id="@+id/output_ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="十进制"/>
+            <RadioButton
+                android:id="@+id/output_sixteen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="十六进制"/>
+            <RadioButton
+                android:id="@+id/output_ft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="英尺"/>
+            <RadioButton
+                android:id="@+id/output_lfft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立方英尺"/>
+        </RadioGroup>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -68,6 +68,9 @@ public class MainActivity extends Activity {
             case R.id.action_new:
                 InsertDialog();
                 return true;
+            case R.id.action_help:
+                Toast.makeText(this,"这是帮助",Toast.LENGTH_SHORT).show();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -115,11 +118,11 @@ public class MainActivity extends Activity {
     }
 
     //新建=增，的过程代码
-    private void InsertUserSql(String strTitle,String strContext,String strTime){
-        String sql = "insert into notes(title,context,time) values(?,?,?)";
-        SQLiteDatabase db = notesDBHelper.getWritableDatabase();
-        db.execSQL(sql,new String[]{strTitle,strContext,strTime});
-    }
+//    private void InsertUserSql(String strTitle,String strContext,String strTime){
+//        String sql = "insert into notes(title,context,time) values(?,?,?)";
+//        SQLiteDatabase db = notesDBHelper.getWritableDatabase();
+//        db.execSQL(sql,new String[]{strTitle,strContext,strTime});
+//    }
     private void Insert(String strTitle,String strContext,String strTime){
         SQLiteDatabase db = notesDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
