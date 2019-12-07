@@ -84,9 +84,9 @@ public class Activity_Converter extends AppCompatActivity {
                     input_flag = 10;
                 else if(checkedId == input_sixteen.getId())
                     input_flag = 16;
-                else if(checkedId == input_mile.getId())
+                else if(checkedId == input_mile.getId())//长度
                     input_flag = 100;
-                else if(checkedId == input_lfm.getId())
+                else if(checkedId == input_lfm.getId())//体积
                     input_flag = 999;
 
 
