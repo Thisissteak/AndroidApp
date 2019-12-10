@@ -18,8 +18,10 @@ import android.provider.MediaStore;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.SidePropagation;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -42,7 +44,6 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    //    private static final File Path = Environment.getExternalStorageDirectory();// 获取SD卡总目录
     private static final int REQUEST_PERMISSION = 0;
     MediaPlayer mediaPlayer=new MediaPlayer();
     ListView listView ;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     String path ;
     String prepath;
     String nextpath ;
+    String songname;
+    String singer;
+    String songtime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,15 +124,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {//长按弹出菜单
                 int songid = (int) id;
+                String a = Integer.toString(songid);
                 Intent intent = new Intent(MainActivity.this, MusicActivity.class);
+//                intent.putExtra("listID",a);
+                Log.d("TAG", "long id is==============> "+id);
                 if(position>0 && position<listsong.size()-1) {
                     path = listsong.get(songid).songPath;
                     prepath = listsong.get(songid - 1).songPath;
                     nextpath = listsong.get(songid + 1).songPath;
+                    songname = listsong.get(songid).songName;
+                    singer = listsong.get(songid).singer;
+                    songtime =listsong.get(songid).songTime;
+                    Log.d("TAG", "onItemClick:songname----------> "+songname);
+                    Log.d("TAG", "onItemClick:songtime----------> "+songtime);
+
 
                     intent.putExtra("path", path);
                     intent.putExtra("presongpath", prepath);
                     intent.putExtra("nextsongpath", nextpath);
+                    intent.putExtra("songname",songname);
+                    intent.putExtra("singer",singer);
+                    intent.putExtra("songtime",songtime);
 
                 }
                 else if(position==0)
@@ -242,40 +258,30 @@ class Utils {
                 null,
                 null,
                 MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
-/***************************************/
-/***************************************/
-
-
-/***************************************/
-
-
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 songInfo = new SongInfo();
+                songInfo.sid=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
                 songInfo.songName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME));
                 songInfo.singer = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
                 songInfo.songPath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
-                if(songInfo.songName.contains("-") )
+                songInfo.songTime = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
+//                Log.d("TAG", "IDIS--------------> "+songInfo.sid);
+//                Log.d("TAG", "tIME--------------> "+songInfo.songTime);
+               if(songInfo.songName.contains("-") )
                 {
                     String[] str = songInfo.songName.split("-");
                     songInfo.singer=str[0];
                     songInfo.songName=str[1];
-                    Log.d("TAG", "STR0 IS--------------> "+str[0]);
-                    Log.d("TAG", "STR1 IS--------------> "+str[1]);
+//                    Log.d("TAG", "STR0 IS--------------> "+str[0]);
+//                    Log.d("TAG", "STR1 IS--------------> "+str[1]);
                 }
-//                else if(songInfo.songName.contains("."))
-//                {
-//                    String[] str1 = songInfo.songName.split(".");
-//                    songInfo.singer=str1[0];
-//                    songInfo.songName=str1[1];
-//                }
                 listsong.add(songInfo);
             }
         }
 
         cursor.close();
         return listsong;
-//
     }
 
 

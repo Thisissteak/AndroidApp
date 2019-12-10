@@ -7,9 +7,12 @@ package com.example.admin.personalproject4;
 public class SongInfo {
     public String songName;//歌曲名
     public String singer;//歌手
+    public String sid;
 
     public String songPath;//歌曲地址
-
+    public String songTime;
+    public String getSongTime(){ return songTime; }
+    public void setSongTime(String songTime){this.songTime=songTime;}
     public String getSongName() {
         return songName;
     }
