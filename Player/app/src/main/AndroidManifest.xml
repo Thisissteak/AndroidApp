@@ -15,10 +15,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MusicActivity" />
 
-        <service
-            android:name=".MusicService"
-            android:exported="true" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

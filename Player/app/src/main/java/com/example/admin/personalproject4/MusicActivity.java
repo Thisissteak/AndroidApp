@@ -26,10 +26,8 @@ public class MusicActivity extends AppCompatActivity {
     private TextView tv_end;
     private TextView tv_song;
     private TextView tv_singer;
-    private String listID;
+    private int listID;
     String path;
-    String presongPath;
-    String nextsongPath;
     String songname;
     String singer;
     String songtime;
@@ -44,7 +42,7 @@ public class MusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music);
         ImageView file = findViewById(R.id.file);
         circleImageView = findViewById(R.id.circle_image);
-        ImageView play = findViewById(R.id.play);
+        final ImageView play = findViewById(R.id.play);
         ImageView stop = findViewById(R.id.stop);
         ImageView prev = findViewById(R.id.prev);
         ImageView next = findViewById(R.id.next);
@@ -57,19 +55,10 @@ public class MusicActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.bar);
         seekBar.setOnSeekBarChangeListener(new MySeekBar());
         Intent intent = getIntent();
-        listID = intent.getStringExtra("listId");
-        Log.d("TAG", "onCreate:ID IS ---------------> " + listID);
-        path = intent.getStringExtra("path");
-        presongPath = intent.getStringExtra("presongpath");
-        nextsongPath = intent.getStringExtra("nextsongpath");
-        songname = intent.getStringExtra("songname");
-        singer = intent.getStringExtra("singer");
-        songtime = intent.getStringExtra("songtime");
-//
-//        Log.d("TAG", "SONGNAME IS -------------------> "+songname);
-//        Log.d("TAG", "Singer IS -------------------> "+singer);
-
+        listID = intent.getIntExtra("listID",1);
+        Log.d("TAG", "onCreate: ID IS?????/// ---------------> " + listID);
         initPlayer();
+        play(listID);
         file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +73,7 @@ public class MusicActivity extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                play(path);
+                play(listID);
                 Log.d("TAG", "playyyyyyyyyy:TIME I---------------> " + ShowTime(mediaPlayer.getDuration()) + "========123==" + mediaPlayer.getDuration());
             }
         });//播放
@@ -101,22 +90,32 @@ public class MusicActivity extends AppCompatActivity {
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listID = listID-1;
                 initPlayer();
-                play(presongPath);
+                play(listID);
+//                initPlayer();
+//                play(presongPath);
 
             }//上一首
         });
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                play(nextsongPath);
+                listID = listID+1;
+                initPlayer();
+                play(listID);
+//                play(nextsongPath);
             }
         });//下一首
 
     }
+//    public String
 
 
     public void initPlayer() {
+        songtime = listsong.get(listID).songTime;
+        singer = listsong.get(listID).singer;
+        songname = listsong.get(listID).songName;
         seekBar.setMax(Integer.parseInt(songtime));
         songtime = ShowTime(Integer.parseInt(songtime));
         Log.d("TAG", "initPlayer:TIME I---------------> " + songtime);
@@ -174,9 +173,10 @@ public class MusicActivity extends AppCompatActivity {
         }
 
 
-        public void play (String path){
+        public void play (int i){
             try {
                 mediaPlayer.reset();
+                path = listsong.get(i).songPath;
                 mediaPlayer.setDataSource(path);
                 mediaPlayer.prepareAsync();
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

@@ -124,47 +124,49 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {//长按弹出菜单
                 int songid = (int) id;
-                String a = Integer.toString(songid);
+                Log.d("TAG", " LIST ID IS "+songid);
+//                String a = Integer.toString(songid);
                 Intent intent = new Intent(MainActivity.this, MusicActivity.class);
-//                intent.putExtra("listID",a);
-                Log.d("TAG", "long id is==============> "+id);
-                if(position>0 && position<listsong.size()-1) {
-                    path = listsong.get(songid).songPath;
-                    prepath = listsong.get(songid - 1).songPath;
-                    nextpath = listsong.get(songid + 1).songPath;
-                    songname = listsong.get(songid).songName;
-                    singer = listsong.get(songid).singer;
-                    songtime =listsong.get(songid).songTime;
-                    Log.d("TAG", "onItemClick:songname----------> "+songname);
-                    Log.d("TAG", "onItemClick:songtime----------> "+songtime);
-
-
-                    intent.putExtra("path", path);
-                    intent.putExtra("presongpath", prepath);
-                    intent.putExtra("nextsongpath", nextpath);
-                    intent.putExtra("songname",songname);
-                    intent.putExtra("singer",singer);
-                    intent.putExtra("songtime",songtime);
-
-                }
-                else if(position==0)
-                {
-                    path = listsong.get(songid).songPath;
-                    prepath = listsong.get(songid+listsong.size()-1).songPath;
-                    nextpath = listsong.get(songid + 1).songPath;
-                    intent.putExtra("path", path);
-                    intent.putExtra("presongpath", prepath);
-                    intent.putExtra("nextsongpath", nextpath);
-                }
-                else {
-                    path = listsong.get(songid).songPath;
-                    prepath = listsong.get(songid - 1).songPath;
-                    nextpath = listsong.get(songid-listsong.size()+1).songPath;
-                    intent.putExtra("path", path);
-                    intent.putExtra("presongpath", prepath);
-                    intent.putExtra("nextsongpath", nextpath);
-
-                }
+                intent.putExtra("listID",songid);
+////                intent.putExtra("listID",a);
+//                Log.d("TAG", "long id is==============> "+id);
+//                if(position>0 && position<listsong.size()-1) {
+//                    path = listsong.get(songid).songPath;
+//                    prepath = listsong.get(songid - 1).songPath;
+//                    nextpath = listsong.get(songid + 1).songPath;
+//                    songname = listsong.get(songid).songName;
+//                    singer = listsong.get(songid).singer;
+//                    songtime =listsong.get(songid).songTime;
+//                    Log.d("TAG", "onItemClick:songname----------> "+songname);
+//                    Log.d("TAG", "onItemClick:songtime----------> "+songtime);
+//
+//
+//                    intent.putExtra("path", path);
+//                    intent.putExtra("presongpath", prepath);
+//                    intent.putExtra("nextsongpath", nextpath);
+//                    intent.putExtra("songname",songname);
+//                    intent.putExtra("singer",singer);
+//                    intent.putExtra("songtime",songtime);
+//
+//                }
+//                else if(position==0)
+//                {
+//                    path = listsong.get(songid).songPath;
+//                    prepath = listsong.get(songid+listsong.size()-1).songPath;
+//                    nextpath = listsong.get(songid + 1).songPath;
+//                    intent.putExtra("path", path);
+//                    intent.putExtra("presongpath", prepath);
+//                    intent.putExtra("nextsongpath", nextpath);
+//                }
+//                else {
+//                    path = listsong.get(songid).songPath;
+//                    prepath = listsong.get(songid - 1).songPath;
+//                    nextpath = listsong.get(songid-listsong.size()+1).songPath;
+//                    intent.putExtra("path", path);
+//                    intent.putExtra("presongpath", prepath);
+//                    intent.putExtra("nextsongpath", nextpath);
+//
+//                }
                 startActivity(intent);
 
 
