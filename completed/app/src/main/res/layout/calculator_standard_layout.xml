@@ -145,8 +145,8 @@
                 style="@style/Button5Style"
                 android:text="@string/add" />
 
-        </LinearLayout>
 
+        </LinearLayout>
         <LinearLayout
             style="@style/Col2Style"
             android:orientation="horizontal" >
@@ -154,9 +154,9 @@
             <Button
                 android:id="@+id/transform_btn"
                 style="@style/Button5Style"
+                android:text="@string/transform"
                 android:textAllCaps="false"
-                android:textColor="#EF7524"
-                android:text="@string/transform" />
+                android:textColor="#EF7524" />
 
             <Button
                 android:id="@+id/zero_btn"
@@ -176,5 +176,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 </LinearLayout>

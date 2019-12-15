@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Uri uri = Uri.parse("content://com.example.notepads.provider");
                 Cursor cursor = getContentResolver().query(uri,null,null,null,null);
-                Log.d("TAG", "IF------>ERROR ");
                 if (cursor!=null){
                     while (cursor.moveToNext()){
                     String title =cursor.getString(cursor.getColumnIndex("title"));

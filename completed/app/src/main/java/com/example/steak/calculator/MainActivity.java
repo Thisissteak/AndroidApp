@@ -33,11 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"This is help!",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.convert:
-//                converter.setOnClickListener(new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Activity_Converter.class);
-//                        intent.setClass(com.jtlab.scientificcalculator.MainActivity.this,Activity_Converter.class);//this前面为当前activty名称，class前面为要跳转到得activity名称
                 startActivity(intent);
                 break;
         }
@@ -53,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
             ViewConfiguration config = ViewConfiguration.get(this);//得到一个已经设置好设备的显示密度的对象
             Field menuKeyField = ViewConfiguration.class
                     .getDeclaredField("sHasPermanentMenuKey");//反射获取其中的方法sHasPermanentMenuKey()，他的作用是报告设备的菜单是否对用户可用，如果不可用可强制可视化。
-            if (menuKeyField != null) {
-                //强制设置参数,让其重绘三个点
-                menuKeyField.setAccessible(true);
-                menuKeyField.setBoolean(config, false);
-            }
+            //强制设置参数,让其重绘三个点
+            menuKeyField.setAccessible(true);
+            menuKeyField.setBoolean(config, false);
         } catch (Exception e) {
             e.printStackTrace();
         }

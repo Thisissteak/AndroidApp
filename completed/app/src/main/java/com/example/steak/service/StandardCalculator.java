@@ -19,34 +19,34 @@ import java.util.List;
 import java.util.Map;
 
 public class StandardCalculator {
-    protected Activity activity;
-    protected TextView showResultTv;
-    protected TextView showInputTv;
-    protected Button cBtn;
-    protected Button delBtn;
-    protected Button resBtn;
-    protected Button divBtn;
-    protected Button sevenBtn;
-    protected Button eightBtn;
-    protected Button nineBtn;
-    protected Button mulBtn;
-    protected Button fourBtn;
-    protected Button fiveBtn;
-    protected Button sixBtn;
-    protected Button subBtn;
-    protected Button oneBtn;
-    protected Button twoBtn;
-    protected Button threeBtn;
-    protected Button addBtn;
-    protected Button transformBtn;
-    protected Button zeroBtn;
-    protected Button pointBtn;
-    protected Button equBtn;
-    protected Map<View, String> map; //将View和String映射起来
-    protected List<InputItem> inputList; //定义记录每次输入的数
-    protected String lastResult;
-    protected String expressionHistory;
-    protected CurrentStatus currentStatus = CurrentStatus.INIT;
+    Activity activity;
+    private TextView showResultTv;
+    private TextView showInputTv;
+    private Button cBtn;
+    private Button delBtn;
+    private Button resBtn;
+    private Button divBtn;
+    private Button sevenBtn;
+    private Button eightBtn;
+    private Button nineBtn;
+    Button mulBtn;
+    private Button fourBtn;
+    private Button fiveBtn;
+    private Button sixBtn;
+    private Button subBtn;
+    private Button oneBtn;
+    private Button twoBtn;
+    private Button threeBtn;
+    private Button addBtn;
+    Button transformBtn;
+    private Button zeroBtn;
+    private Button pointBtn;
+    private Button equBtn;
+    Map<View, String> map; //将View和String映射起来
+    List<InputItem> inputList; //定义记录每次输入的数
+    private String lastResult;
+    private String expressionHistory;
+    CurrentStatus currentStatus = CurrentStatus.INIT;
 
     public static enum CurrentStatus {
         INIT, CALCU,END, ERROR
@@ -235,7 +235,7 @@ public class StandardCalculator {
     }
 
 
-    protected void clear() {
+    private void clear() {
         if (!isInitInputList()) {
             initInput();
             Log.i(activity.getClass().getSimpleName(),"cleaned inputTV \n inputTV: "+showInputTv.getText()
@@ -246,7 +246,7 @@ public class StandardCalculator {
         }
     }
 
-    protected void delete() {
+    private void delete() {
         if (!isInitInputList()) {
             if (inputList.size() == 1) {
                 initInput();
@@ -257,14 +257,11 @@ public class StandardCalculator {
     }
 
 
-    protected boolean isInitInputList() {
-        if(inputList.size()==1 && inputList.get(0).getValue().equals(map.get(zeroBtn))){
-            return true;
-        }
-        return false;
+    boolean isInitInputList() {
+        return inputList.size() == 1 && inputList.get(0).getValue().equals(map.get(zeroBtn));
     }
 
-    protected void initInput() {
+    private void initInput() {
         inputList.clear();
         inputList.add(new InputItem(map.get(zeroBtn), InputItem.TYPE.NUM));
         showInputTv.setText(map.get(zeroBtn));
@@ -272,20 +269,19 @@ public class StandardCalculator {
     }
 
 
-    protected void addTV(View view) {
+    void addTV(View view) {
         showInputTv.setText(showInputTv.getText() + map.get(view));
     }
 
-    protected String updateInputTV(){
+    private void updateInputTV(){
         String inputString = "";
         for(InputItem inputItem: inputList){
             inputString += inputItem.getValue();
         }
         showInputTv.setText(inputString);
-        return inputString;
     }
 
-    protected InputItem subInputListAndInputTV(){
+    InputItem subInputListAndInputTV(){
         if(inputList.size()>0){
             InputItem inputItem =  inputList.remove(inputList.size()-1);
             updateInputTV();
@@ -294,14 +290,14 @@ public class StandardCalculator {
         return null;
     }
 
-    protected InputItem getLastInputItem(){
+    InputItem getLastInputItem(){
         if(inputList.size()>0){
             return inputList.get(inputList.size()-1);
         }
         return null;
     }
 
-    protected void inputLastRes(){
+    private void inputLastRes(){
         if(!lastResult.isEmpty() && (getLastInputItem().getType()!= InputItem.TYPE.NUM
                 || currentStatus==CurrentStatus.INIT)){
             for(int i = 0;i<lastResult.length();i++){
@@ -312,7 +308,7 @@ public class StandardCalculator {
     }
 
 
-    protected void inputOpe(View view) {
+    void inputOpe(View view) {
         if(getLastInputItem().getType()== InputItem.TYPE.OPE){    //连续输入两个OPR型操作符，删除第一个
             Log.i(activity.getClass().getSimpleName(),"delete OPT: "+  subInputListAndInputTV().getValue());
         }
@@ -322,11 +318,11 @@ public class StandardCalculator {
                 "\ninputList:  "+getInputListValues());
     }
 
-    protected void inputNum(View view){
+    private void inputNum(View view){
         inputNum(map.get(view));
     }
 
-    protected void inputNum(String num) {
+    private void inputNum(String num) {
         initEndStatus();
         if(getLastInputItem().getType()== InputItem.TYPE.OPE_NUM){
             inputOpe(mulBtn);
@@ -349,7 +345,7 @@ public class StandardCalculator {
                 "\ninputList:  " + getInputListValues());
     }
 
-    protected String getInputListValues(){   //给日志打印inputList信息
+    String getInputListValues(){   //给日志打印inputList信息
         String s = "";
         for(InputItem inputItem: inputList){
             s += inputItem.getValue()+" ";
@@ -357,7 +353,7 @@ public class StandardCalculator {
         return s;
     }
 
-    protected void initEndStatus(){    //上次计算结束后，初始化input
+    void initEndStatus(){    //上次计算结束后，初始化input
         if(currentStatus == CurrentStatus.END && getLastInputItem().getType()== InputItem.TYPE.NUM){
                 showResultTv.setText(String.valueOf(showResultTv.getText())+showInputTv.getText());
                 initInput();
@@ -365,7 +361,7 @@ public class StandardCalculator {
         }
     }
 
-    protected void getResult(View view) {
+    private void getResult(View view) {
         Calculate calculate = new Calculate();
         if (showInputTv.getText().charAt(showInputTv.length() - 1) != '=') {
             addTV(view);
@@ -385,7 +381,7 @@ public class StandardCalculator {
         "\ninputList:"+getInputListValues());
     }
 
-    protected void resultManage(String result){
+    private void resultManage(String result){
         showResultTv.setText(showInputTv.getText());
         showInputTv.setText(result);
         inputList.clear();

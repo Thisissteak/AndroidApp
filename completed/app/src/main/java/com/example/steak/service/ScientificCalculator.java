@@ -11,21 +11,21 @@ import com.example.luozenglin.calculator.R;
 import com.example.steak.common.InputItem;
 
 public class ScientificCalculator extends StandardCalculator {
-    protected Button antiBtn;
-    protected Button perCent;
-    protected Button sinBtn;
-    protected Button cosBtn;
-    protected Button tanBtn;
-    protected Button powerBtn;
-    protected Button lgBtn;
-    protected Button lnBtn;
-    protected Button leftBraBtn;
-    protected Button rightBraBtn;
-    protected Button squareRootBtn;
-    protected Button factorialBtn;
-    protected Button reciprocalBtn;
-    protected Button pIBtn;
-    protected Button eBtn;
+    private Button antiBtn;
+    private Button perCent;
+    private Button sinBtn;
+    private Button cosBtn;
+    private Button tanBtn;
+    private Button powerBtn;
+    private Button lgBtn;
+    private Button lnBtn;
+    private Button leftBraBtn;
+    private Button rightBraBtn;
+    private Button squareRootBtn;
+    private Button factorialBtn;
+    private Button reciprocalBtn;
+    private Button pIBtn;
+    private Button eBtn;
 
     public ScientificCalculator(Activity activity){
         super(activity);
@@ -34,22 +34,22 @@ public class ScientificCalculator extends StandardCalculator {
     @Override
     protected void init() {
         super.init();
-        antiBtn = (Button) activity.findViewById(R.id.anti_btn);
-        sinBtn = (Button) activity.findViewById(R.id.sin_btn);
-        cosBtn  = (Button) activity.findViewById(R.id.cos_btn);
-        tanBtn = (Button) activity.findViewById(R.id.tan_btn);
-        powerBtn = (Button) activity.findViewById(R.id.power_btn);
-        lgBtn = (Button) activity.findViewById(R.id.log_btn);
-        lnBtn = (Button) activity.findViewById(R.id.ln_btn);
-        leftBraBtn = (Button) activity.findViewById(R.id.leftBracket_btn);
-        rightBraBtn = (Button) activity.findViewById(R.id.rightBracket_btn);
-        squareRootBtn = (Button) activity.findViewById(R.id.squareRoot_btn);
-        factorialBtn = (Button) activity.findViewById(R.id.factorial_btn);
-        reciprocalBtn = (Button) activity.findViewById(R.id.reciprocal_btn);
-        transformBtn = (Button) activity.findViewById(R.id.transform_btn);
-        pIBtn = (Button) activity.findViewById(R.id.PI_btn);
-        eBtn = (Button) activity.findViewById(R.id.e_btn);
-        perCent = (Button) activity.findViewById(R.id.perCent_btn);
+        antiBtn =  activity.findViewById(R.id.anti_btn);
+        sinBtn = activity.findViewById(R.id.sin_btn);
+        cosBtn  = activity.findViewById(R.id.cos_btn);
+        tanBtn =  activity.findViewById(R.id.tan_btn);
+        powerBtn =  activity.findViewById(R.id.power_btn);
+        lgBtn =  activity.findViewById(R.id.log_btn);
+        lnBtn =  activity.findViewById(R.id.ln_btn);
+        leftBraBtn =  activity.findViewById(R.id.leftBracket_btn);
+        rightBraBtn =  activity.findViewById(R.id.rightBracket_btn);
+        squareRootBtn =  activity.findViewById(R.id.squareRoot_btn);
+        factorialBtn =  activity.findViewById(R.id.factorial_btn);
+        reciprocalBtn = activity.findViewById(R.id.reciprocal_btn);
+        transformBtn =  activity.findViewById(R.id.transform_btn);
+        pIBtn =  activity.findViewById(R.id.PI_btn);
+        eBtn = activity.findViewById(R.id.e_btn);
+        perCent =  activity.findViewById(R.id.perCent_btn);
         map.put(sinBtn,activity.getString(R.string.sin));
         map.put(cosBtn,activity.getString(R.string.cos));
         map.put(tanBtn,activity.getString(R.string.tan));
@@ -173,7 +173,7 @@ public class ScientificCalculator extends StandardCalculator {
         activity.startActivity(intent);
     }
 
-    protected void transTrigon(){
+    private void transTrigon(){
         if(antiBtn.getText().equals(activity.getString(R.string.radian))){
             antiBtn.setText(activity.getString(R.string.deg));
         }else if(antiBtn.getText().equals(activity.getString(R.string.deg))){
@@ -185,7 +185,7 @@ public class ScientificCalculator extends StandardCalculator {
 
     }
 
-    protected void inputNumOpe(View view){
+    private void inputNumOpe(View view){
         if( currentStatus == CurrentStatus.END){
             initEndStatus();
         }
@@ -202,7 +202,7 @@ public class ScientificCalculator extends StandardCalculator {
                 "\ninputList: "+getInputListValues());
     }
 
-    protected void inputOpeOpe(View view) {
+    private void inputOpeOpe(View view) {
         if (getLastInputItem().getType()!= InputItem.TYPE.NUM                      //OPT_OPT前必须是数字或右括号
                 && getLastInputItem().getType()!= InputItem.TYPE.RIGHT_BRACKET) {
             Log.i(activity.getClass().getSimpleName(),"Last input is "+
@@ -214,7 +214,7 @@ public class ScientificCalculator extends StandardCalculator {
         Log.i(activity.getClass().getSimpleName(),"inputList:  "+getInputListValues());
     }
 
-    protected void inputOpeNum(View view){
+    private void inputOpeNum(View view){
         if( currentStatus == CurrentStatus.END){
             initEndStatus();
         }
@@ -230,7 +230,7 @@ public class ScientificCalculator extends StandardCalculator {
                 "\ninputList: "+getInputListValues());
     }
 
-    protected void inputLeftBra(){
+    private void inputLeftBra(){
         if( currentStatus == CurrentStatus.END){
             initEndStatus();
         }
@@ -246,7 +246,7 @@ public class ScientificCalculator extends StandardCalculator {
                 "\ninputList: "+getInputListValues());
     }
 
-    protected void inputRightBra(){
+    private void inputRightBra(){
         if(getLastInputItem().getType()== InputItem.TYPE.OPE){
             subInputListAndInputTV();
         }

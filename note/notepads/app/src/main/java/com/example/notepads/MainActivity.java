@@ -32,16 +32,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //为list注册上下文菜单
         ListView list = (ListView)findViewById(R.id.list);
         registerForContextMenu(list);
 
         //创建SQLiteOpenHelper对象
         notesDBHelper = new NotesDBHelper(this);
-
-
 
         //在列表显示全部便签
         ArrayList<Map<String,String>> items = getAll();

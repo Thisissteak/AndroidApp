@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -20,9 +21,6 @@ public class Activity_Converter extends AppCompatActivity {
     private int output_flag;   //输出进制标志位
     private EditText input_text;
     private EditText output_text;
-    private Button change;
-    private RadioGroup input_group;
-    private RadioGroup  output_group;
     private RadioButton input_two;
     private RadioButton input_eight;
     private RadioButton input_ten;
@@ -50,9 +48,9 @@ public class Activity_Converter extends AppCompatActivity {
         //建立监听器
         input_text = (EditText) findViewById(R.id.input_text);
         output_text = (EditText) findViewById(R.id.output_text);
-        change = (Button) findViewById(R.id.change);
-        input_group = (RadioGroup) findViewById(R.id.input_group);
-        output_group = (RadioGroup) findViewById(R.id.output_group);
+        ImageView change = findViewById(R.id.change);
+        RadioGroup input_group = (RadioGroup) findViewById(R.id.input_group);
+        RadioGroup output_group = (RadioGroup) findViewById(R.id.output_group);
         input_two = (RadioButton) findViewById(R.id.input_two);
         input_eight = (RadioButton) findViewById(R.id.input_eight);
         input_ten = (RadioButton) findViewById(R.id.input_ten);
@@ -114,7 +112,11 @@ public class Activity_Converter extends AppCompatActivity {
         //转换按键监听器
         change.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                change();
+                try {
+                    change();
+                }catch (Exception e){
+                    Toast.makeText(Activity_Converter.this,"输入错误",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -123,7 +125,7 @@ public class Activity_Converter extends AppCompatActivity {
         String str;
         int input_num = 0;
         double double_num = 0;
-        char a = '0';
+        char a;
         int enable_flag = 0;
         String cha;
 
@@ -167,24 +169,12 @@ public class Activity_Converter extends AppCompatActivity {
         /*************米转换******************/
         else if(input_flag == 100){
             for(int i = 0; i < cha.length(); i ++){
-                a = cha.charAt(i);
-                //判断是否有输入错误
-                if(a >= '0' && a <= '7')
-                    enable_flag = 0;
-
-                else
-                    enable_flag = 1;
-            }
-            if(enable_flag == 0) {
-               Double number = Double.valueOf(cha).doubleValue();
+               Double number = Double.valueOf(cha);
                 Log.d("TAG", "number is"+number);
 
                 double_num= 3.2808*number;
                 Log.d("TAG", "double is"+double_num);
 
-            }
-            else{
-                Toast.makeText(Activity_Converter.this,"输入错误",Toast.LENGTH_SHORT).show();
             }
         }
         /*******************************/
@@ -193,20 +183,11 @@ public class Activity_Converter extends AppCompatActivity {
             for(int i = 0; i < cha.length(); i ++){
                 a = cha.charAt(i);
                 //判断是否有输入错误
-                if(a >= '0' && a <= '7')
-                    enable_flag = 0;
-                else
-                    enable_flag = 1;
-            }
-            if(enable_flag == 0) {
-                Double number = Double.valueOf(cha).doubleValue();
+                Double number = Double.valueOf(cha);
                 Log.d("TAG", "number is"+number);
 
                 double_num= 35.3147*number;
                 Log.d("TAG", "double is"+double_num);
-            }
-            else{
-                Toast.makeText(Activity_Converter.this,"输入错误",Toast.LENGTH_SHORT).show();
             }
         }
         /*******************************/
@@ -221,7 +202,7 @@ public class Activity_Converter extends AppCompatActivity {
             }
             if(enable_flag == 0) {
                 str = cha;
-                input_num = Integer.valueOf(str).intValue();
+                input_num = Integer.valueOf(str);
             }
             else{
                 Toast.makeText(Activity_Converter.this,"输入错误",Toast.LENGTH_SHORT).show();

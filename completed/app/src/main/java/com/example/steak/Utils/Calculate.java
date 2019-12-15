@@ -72,7 +72,7 @@ public class Calculate {
         return dealWithResult(numberStack.pop());
     }
 
-    protected static String dealWithResult(String result){
+    private static String dealWithResult(String result){
         String res = String.format("%.12f",Double.parseDouble(result));
         for(int i = res.length()-1;i>0;i--){
             if(res.charAt(i)=='.'){
@@ -89,8 +89,8 @@ public class Calculate {
         return res;
     }
 
-    protected static void processAnOperator(Stack<String> numberStack, Stack<String> operatorStack,
-                                            Context context) throws ArithmeticException {
+    private static void processAnOperator(Stack<String> numberStack, Stack<String> operatorStack,
+                                          Context context) throws ArithmeticException {
         String ope = operatorStack.pop();
         Log.i("Calculate", "operator: " + numberStack.peek() + ope);
         if (ope.equals("+")) {
@@ -118,7 +118,7 @@ public class Calculate {
         } else if (ope.equals(context.getString(R.string.tan))) {
             numberStack.push(String.valueOf(Math.tan(Double.parseDouble(numberStack.pop()))));
         } else if (ope.equals(context.getString(R.string.power))) {
-            Double d = Double.parseDouble(numberStack.pop());
+            double d = Double.parseDouble(numberStack.pop());
             numberStack.push(String.valueOf(Math.pow(Double.parseDouble(numberStack.pop()), d)));
         } else if (ope.equals(context.getString(R.string.log))) {
             numberStack.push(String.valueOf(Math.log10(Double.parseDouble(numberStack.pop()))));
@@ -128,7 +128,7 @@ public class Calculate {
             numberStack.push(String.valueOf(Math.sqrt(Double.parseDouble(numberStack.pop()))));
         } else if (ope.equals(context.getString(R.string.factorial))) {
             int a = 1;
-            Double n = Math.floor(Double.parseDouble(numberStack.pop()));
+            double n = Math.floor(Double.parseDouble(numberStack.pop()));
             for (int i = 1; i <= n; i++) {
                 a *= i;
             }
@@ -149,14 +149,14 @@ public class Calculate {
             if (inputItem.getType().equals(InputItem.TYPE.NUM)) {
                 numberString += inputItem.getValue();
             } else {
-                if (numberString != "") {
+                if (!numberString.equals("")) {
                     list.add(new InputItem(numberString, InputItem.TYPE.NUM));
                     numberString = "";
                 }
                 list.add(inputItem);
             }
         }
-        if (numberString != "") {
+        if (!numberString.equals("")) {
             list.add(new InputItem(numberString, InputItem.TYPE.NUM));
         }
         String expression = "";
