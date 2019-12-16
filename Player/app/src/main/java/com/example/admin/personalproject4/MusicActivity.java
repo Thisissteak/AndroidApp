@@ -1,6 +1,7 @@
 package com.example.admin.personalproject4;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +23,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MusicActivity extends AppCompatActivity {
     List<SongInfo> listsong;
     ArrayList<String> songNameList = new ArrayList<String>();
-
     private CircleImageView circleImageView;//圆形组件
     private TextView tv_end;
     private TextView tv_song;
     private TextView tv_singer;
     private int listID;
+    private boolean PlayModel;
     String path;
     String songname;
     String singer;
     String songtime;
-    private Timer timer;
     private boolean isSeekBarChanging;//防止与计时器冲突
     private SeekBar seekBar;
     MediaPlayer mediaPlayer = new MediaPlayer();
@@ -42,10 +43,12 @@ public class MusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music);
         ImageView file = findViewById(R.id.file);
         circleImageView = findViewById(R.id.circle_image);
-        final ImageView play = findViewById(R.id.play);
+//        final ImageView play = findViewById(R.id.play);
         ImageView stop = findViewById(R.id.stop);
         ImageView prev = findViewById(R.id.prev);
         ImageView next = findViewById(R.id.next);
+        ImageView model = findViewById(R.id.model);
+        ImageView random = findViewById(R.id.random);
         Utils.getmusic(MusicActivity.this);
         listsong = new ArrayList<>();
         listsong = Utils.getmusic(this);
@@ -56,9 +59,23 @@ public class MusicActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new MySeekBar());
         Intent intent = getIntent();
         listID = intent.getIntExtra("listID",1);
-        Log.d("TAG", "onCreate: ID IS?????/// ---------------> " + listID);
-        initPlayer();
+        Log.d("TAG", "onCreate: ID IS ---------------> " + listID);
+        initPlayer(listID);
         play(listID);
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playrandom();
+                Toast.makeText(MusicActivity.this,"随机播放",Toast.LENGTH_SHORT).show();
+            }
+        });
+        model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playloop();
+                Toast.makeText(MusicActivity.this,"顺序播放",Toast.LENGTH_SHORT).show();
+            }
+        });
         file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,13 +87,13 @@ public class MusicActivity extends AppCompatActivity {
 
             }
         });//回到文件列表
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                play(listID);
-                Log.d("TAG", "playyyyyyyyyy:TIME I---------------> " + ShowTime(mediaPlayer.getDuration()) + "========123==" + mediaPlayer.getDuration());
-            }
-        });//播放
+//        play.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                play(listID);
+//                Log.d("TAG", "playyyyyyyyyy:TIME I---------------> " + ShowTime(mediaPlayer.getDuration()) + "========123==" + mediaPlayer.getDuration());
+//            }
+//        });//播放
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,10 +108,8 @@ public class MusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 listID = listID-1;
-                initPlayer();
+                initPlayer(listID);
                 play(listID);
-//                initPlayer();
-//                play(presongPath);
 
             }//上一首
         });
@@ -102,17 +117,15 @@ public class MusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 listID = listID+1;
-                initPlayer();
+                initPlayer(listID);
                 play(listID);
-//                play(nextsongPath);
             }
         });//下一首
-
     }
-//    public String
 
 
-    public void initPlayer() {
+    public void initPlayer(int listID) {
+        Log.d("TAG", "initPlayer:listID is "+listID);
         songtime = listsong.get(listID).songTime;
         singer = listsong.get(listID).singer;
         songname = listsong.get(listID).songName;
@@ -122,7 +135,7 @@ public class MusicActivity extends AppCompatActivity {
         tv_end.setText(songtime);
         tv_song.setText(singer);
         tv_singer.setText(songname);
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -136,6 +149,14 @@ public class MusicActivity extends AppCompatActivity {
                 }
             }
         }, 0, 1000);
+    }
+    private void playloop() {if (listID<listsong.size()){
+        Log.d("TAG", "playloop: "+listID);
+        listID++;
+        Log.d("TAG", "playloop:2 "+listID);
+        initPlayer(listID);
+        play(listID);
+    }
     }
 
 
@@ -152,6 +173,11 @@ public class MusicActivity extends AppCompatActivity {
 
 
 
+    private void playrandom(){
+        listID = (int) (1 + Math.random() * (listsong.size() - 1 + 1));
+        initPlayer(listID);
+        play(listID);
+    }
 
 
         public class MySeekBar implements SeekBar.OnSeekBarChangeListener {
@@ -171,9 +197,14 @@ public class MusicActivity extends AppCompatActivity {
 
             }
         }
+    private void single() {
+        listID++;
+        play(listID);
+    }
 
 
-        public void play (int i){
+
+    public void play (int i){
             try {
                 mediaPlayer.reset();
                 path = listsong.get(i).songPath;

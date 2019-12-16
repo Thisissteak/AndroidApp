@@ -105,37 +105,38 @@
             tools:layout_editor_absoluteX="143dp"
             tools:layout_editor_absoluteY="647dp" />
 
-        <ImageView
-            android:id="@+id/play"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/stop"
-            android:onClick="playButtonOnclick"
-            android:src="@mipmap/play"
-            tools:layout_editor_absoluteX="232dp"
-            tools:layout_editor_absoluteY="647dp" />
+<!--        <ImageView-->
+<!--            android:id="@+id/play"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginLeft="12dp"-->
+<!--            android:layout_toRightOf="@+id/stop"-->
+<!--            android:onClick="playButtonOnclick"-->
+<!--            android:src="@mipmap/play"-->
+<!--            tools:layout_editor_absoluteX="232dp"-->
+<!--            tools:layout_editor_absoluteY="647dp" />-->
 
         <ImageView
             android:id="@+id/next"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="18dp"
-            android:layout_toRightOf="@+id/play"
+            android:layout_marginLeft="106dp"
+            android:layout_toRightOf="@+id/prev"
             android:onClick="stopButtonOnclick"
             android:src="@mipmap/next"
             tools:layout_editor_absoluteX="318dp"
             tools:layout_editor_absoluteY="647dp" />
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/bottom_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:id="@+id/bottom_"
-        app:layout_constraintTop_toBottomOf="@+id/barLinearLayout"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barLinearLayout">
 
         <ImageView
             android:id="@+id/file"
@@ -148,7 +149,7 @@
             tools:layout_editor_absoluteY="490dp" />
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/model"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
@@ -158,13 +159,18 @@
             android:onClick="backButtonOnclick"
             android:src="@mipmap/order" />
 
+        <ImageView
+            android:id="@+id/random"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_toEndOf="@+id/model"
+            android:layout_toRightOf="@+id/model"
+            android:onClick="backButtonOnclick"
+            android:src="@mipmap/random" />
+
+
     </RelativeLayout>
-
-
-
-
-
-
 
 
 </android.support.constraint.ConstraintLayout>

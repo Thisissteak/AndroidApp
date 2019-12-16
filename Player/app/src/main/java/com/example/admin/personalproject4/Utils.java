@@ -39,25 +39,23 @@ class Utils {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 songInfo = new SongInfo();
-                songInfo.sid=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
+                songInfo.sid = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
                 songInfo.songName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME));
                 songInfo.singer = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
                 songInfo.songPath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
                 songInfo.songTime = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
 //                Log.d("TAG", "IDIS--------------> "+songInfo.sid);
 //                Log.d("TAG", "tIME--------------> "+songInfo.songTime);
-               if(songInfo.songName.contains("-") )
-                {
+                if (songInfo.songName.contains("-")) {
                     String[] str = songInfo.songName.split("-");
-                    songInfo.singer=str[0];
-                    songInfo.songName=str[1];
+                    songInfo.singer = str[0];
+                    songInfo.songName = str[1];
 //                    Log.d("TAG", "STR0 IS--------------> "+str[0]);
 //                    Log.d("TAG", "STR1 IS--------------> "+str[1]);
                 }
                 listsong.add(songInfo);
             }
         }
-
         cursor.close();
         return listsong;
     }

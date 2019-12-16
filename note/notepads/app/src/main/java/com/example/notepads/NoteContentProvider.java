@@ -73,8 +73,7 @@ public class NoteContentProvider extends ContentProvider {
         int result = uriMatcher.match(uri);
         if (result==result_code){
             SQLiteDatabase db = notesDBHelper.getReadableDatabase();
-            Cursor cursor = db.query(Note.TABLE_NAME,null,null,null,null,null,null);
-            return cursor;
+            return db.query(Note.TABLE_NAME,null,null,null,null,null,null);
         }
         else {
             throw new IllegalArgumentException("参数错误");
@@ -90,11 +89,9 @@ public class NoteContentProvider extends ContentProvider {
         SQLiteDatabase db = notesDBHelper.getWritableDatabase();
        int uridatedRows = 0;
         int result = uriMatcher.match(uri);
-        if (1==1) {
-            String newNoteid =uri.getPathSegments().get(1);
-            Log.d("TAG", "updataID---------> "+newNoteid);
-            uridatedRows=db.update("notes",values,"_id=?",new String[]{newNoteid});
-        }
+        String newNoteid =uri.getPathSegments().get(1);
+        Log.d("TAG", "updataID---------> "+newNoteid);
+        uridatedRows=db.update("notes",values,"_id=?",new String[]{newNoteid});
         Log.d("TAG", "updataID--------->!!!!!!!!!!!!! ");
         return uridatedRows;
     }
