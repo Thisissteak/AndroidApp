@@ -43,7 +43,6 @@ public class MusicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music);
         ImageView file = findViewById(R.id.file);
         circleImageView = findViewById(R.id.circle_image);
-//        final ImageView play = findViewById(R.id.play);
         ImageView stop = findViewById(R.id.stop);
         ImageView prev = findViewById(R.id.prev);
         ImageView next = findViewById(R.id.next);
@@ -60,6 +59,7 @@ public class MusicActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listID = intent.getIntExtra("listID",1);
         Log.d("TAG", "onCreate: ID IS ---------------> " + listID);
+//        circleImageView
         initPlayer(listID);
         play(listID);
         random.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +86,7 @@ public class MusicActivity extends AppCompatActivity {
                 startActivity(intent1);//启动list activity
 
             }
-        });//回到文件列表
-//        play.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                play(listID);
-//                Log.d("TAG", "playyyyyyyyyy:TIME I---------------> " + ShowTime(mediaPlayer.getDuration()) + "========123==" + mediaPlayer.getDuration());
-//            }
-//        });//播放
+        });
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

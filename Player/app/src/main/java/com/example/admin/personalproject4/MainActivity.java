@@ -1,47 +1,30 @@
 package com.example.admin.personalproject4;
 
 import android.Manifest;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Environment;
-import android.provider.BaseColumns;
-import android.provider.MediaStore;
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v4.content.ContextCompat;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.SidePropagation;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.admin.personalproject4.MusicActivity;
-import com.example.admin.personalproject4.R;
-import com.example.admin.personalproject4.SongInfo;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -80,24 +63,56 @@ public class MainActivity extends AppCompatActivity {
             songNameList.add(listsong.get(i).singer);
         }
         Log.d("TAG", "onCreate:listsong size is "+listsong.size());
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, songNameList);
-        listView = (ListView) findViewById(R.id.listview);
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, songNameList);
+        listView = findViewById(R.id.listview);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {//长按弹出菜单
-                int songid = (int) id;
-                Log.d("TAG", " LIST ID IS " + songid);
+        listView.setOnLongClickListener(new View.OnLongClickListener() {
+                                            @Override
+                                            public boolean onLongClick(View v) {
+                                                Toast.makeText(MainActivity.this,"djfkldj",Toast.LENGTH_SHORT).show();
+//                                                DeleteUseSql(strId);
+//                                                setNotesListView(getAll());
+                                                return true;
+                                            }
+                                        });
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {//长按弹出菜单
+                        int songid = (int) id;
+                        Log.d("TAG", " LIST ID IS " + songid);
 //                String a = Integer.toString(songid);
-                Intent intent = new Intent(MainActivity.this, MusicActivity.class);
-                intent.putExtra("listID", songid);
-                startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, MusicActivity.class);
+                        intent.putExtra("listID", songid);
+                        startActivity(intent);
 
 
-            }
-        });
+                    }
+                });
     }
+    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenu.ContextMenuInfo menuInfo){
+        getMenuInflater().inflate(R.menu.list_menu,menu);
+        Log.d("TAG", "9999999999999999999999999999 ");
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Log.d("TAG", "8888888888888888888888888 ");
+        int id = item.getItemId();
+        Log.d("TAG", "77777777777777777 ");
+        switch (id){
+            case R.id.action_delete:
+                Log.d("TAG", "666666666666666 ");
+               songNameList.remove(id);
+               ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, songNameList);
+                listView.setAdapter(adapter);
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+//    private void DeleteUseSql(String strId){
+//        String sql = "delete from notes where _id='" + strId + "'";
+//        SQLiteDatabase db = notesDBHelper.getReadableDatabase();
+//        db.execSQL(sql);
+//    }
 
 
     //权限请求许可

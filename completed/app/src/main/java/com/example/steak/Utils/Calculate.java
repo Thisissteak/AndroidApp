@@ -13,18 +13,13 @@ import java.util.Stack;
 
 public class Calculate {
 
-    /*
-    此求值算法的核心是常用的双栈处理方式；
-    对于操作数直接压栈，对于操作符，先查看栈顶操作数的优先级，如果栈顶元素优先级低于当前操作数优先级，
-    当前操作符压栈，如果不低于，栈顶操作符出栈计算；
-     */
     public static String getResult(List<InputItem> inputItemList, Context context)
             throws ArithmeticException {
         Stack<String> numberStack = new Stack<>();
         Stack<String> operatorStack = new Stack<>();
         List<InputItem> expressionList = preconditioning(inputItemList);
         for (InputItem item : expressionList) {
-            Log.d("Calculate", "InputItem: " + item.getValue()+"\n numberStack:"
+            Log.d("Calculate", "InputItem:????? " + item.getValue()+"\n numberStack:?????"
                     +numberStack.toString()+"\n operatorStack: "+operatorStack.toString());
             if (item.getType() == InputItem.TYPE.NUM) {
                 numberStack.push(item.getValue());
